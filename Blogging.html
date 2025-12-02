@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blogging Website</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .hero {
+      background: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">MyBlog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Blogs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero">
+    <div class="text-center">
+      <h1>Welcome to My Blog</h1>
+      <p class="fs-4">Discover articles, stories, tutorials and more</p>
+      <a href="#" class="btn btn-light btn-lg mt-3">Start Reading</a>
+    </div>
+  </section>
+
+  <!-- ==================== LATEST BLOG POSTS ==================== -->
+  <div class="container my-5">
+    <h2 class="text-center mb-4">Latest Posts</h2>
+
+    <div class="row g-4">
+
+      <!-- Blog Card 1 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://source.unsplash.com/600x400/?technology" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Technology Trends 2025</h5>
+            <p class="card-text">A quick overview of the latest trends in technology and innovation.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Card 2 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="https://source.unsplash.com/600x400/?travel" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Top Travel Destinations</h5>
+            <p class="card-text">Explore the most beautiful places around the world.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Card 3 -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="httpssource.unsplash.com/600x400/?coding" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Become a Better Developer</h5>
+            <p class="card-text">Tips and resources to help you improve your coding skills.</p>
+            <a href="#" class="btn btn-primary">Read More</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-dark text-light text-center py-4">
+    <p class="mb-0">© 2025 MyBlog — All Rights Reserved</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
