@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Art & Craft</a>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h2 class="mb-4">🛒 Your Cart</h2>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price (₹)</th>
+        <th>Quantity</th>
+        <th>Total</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody id="cart-items"></tbody>
+  </table>
+
+  <h4 class="text-end">Grand Total: ₹ <span id="grand-total">0</span></h4>
+
+  <div class="text-end mt-4">
+    <a href="payment.html" class="btn btn-success btn-lg">Proceed to Payment</a>
+  </div>
+</div>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cartTable = document.getElementById("cart-items");
+  let grandTotal = 0;
+
+  function loadCart() {
+    cartTable.innerHTML = "";
+    grandTotal = 0;
+
+    cart.forEach((item, index) => {
+      let total = item.price * item.qty;
+      grandTotal += total;
+
+      cartTable.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.price}</td>
+          <td>${item.qty}</td>
+          <td>${total}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" onclick="removeItem(${index})">X</button>
+          </td>
+        </tr>
+      `;
+    });
+
+    document.getElementById("grand-total").innerText = grandTotal;
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
+  }
+
+  loadCart();
+</script>
+
+</body>
+</html>
