@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f4f6f9;
+    }
+    .sidebar {
+      min-height: 100vh;
+      background: #212529;
+    }
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      padding: 12px;
+    }
+    .sidebar a:hover {
+      background: #343a40;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-2 sidebar p-0">
+      <h4 class="text-center text-white py-3">Admin Panel</h4>
+      <a href="#" onclick="showSection('dashboard')">📊 Dashboard</a>
+      <a href="#" onclick="showSection('products')">📦 Products</a>
+      <a href="#" onclick="showSection('orders')">🛒 Orders</a>
+      <a href="index.html">🌐 View Website</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-10 p-4">
+
+      <!-- Dashboard -->
+      <div id="dashboard">
+        <h2>Dashboard</h2>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5>Total Products</h5>
+                <h2 id="totalProducts">0</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5>Total Orders</h5>
+                <h2 id="totalOrders">0</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5>Total Revenue</h5>
+                <h2>₹ <span id="totalRevenue">0</span></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div id="products" style="display:none">
+        <h2>Manage Products</h2>
+
+        <form class="row g-3 mt-3" onsubmit="addProduct(event)">
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="pname" placeholder="Product Name" required>
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control" id="pprice" placeholder="Price" required>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-success w-100">Add Product</button>
+          </div>
+        </form>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price (₹)</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="productTable"></tbody>
+        </table>
+      </div>
+
+      <!-- Orders -->
+      <div id="orders" style="display:none">
+        <h2>Orders</h2>
+
+        <table class="table table-bordered mt-4">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+            </tr>
+          </thead>
+          <tbody id="orderTable"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+let products = JSON.parse(localStorage.getItem("products")) || [];
+let orders = JSON.parse(localStorage.getItem("cart")) || [];
+
+function showSection(section) {
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("products").style.display = "none";
+  document.getElementById("orders").style.display = "none";
+  document.getElementById(section).style.display = "block";
+}
+
+function addProduct(e) {
+  e.preventDefault();
+  let name = pname.value;
+  let price = pprice.value;
+
+  products.push({ name, price });
+  localStorage.setItem("products", JSON.stringify(products));
+  pname.value = "";
+  pprice.value = "";
+  loadProducts();
+  loadDashboard();
+}
+
+function loadProducts() {
+  productTable.innerHTML = "";
+  products.forEach((p, i) => {
+    productTable.innerHTML += `
+      <tr>
+        <td>${p.name}</td>
+        <td>${p.price}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteProduct(${i})">X</button></td>
+      </tr>
+    `;
+  });
+}
+
+function deleteProduct(i) {
+  products.splice(i, 1);
+  localStorage.setItem("products", JSON.stringify(products));
+  loadProducts();
+  loadDashboard();
+}
+
+function loadOrders() {
+  orderTable.innerHTML = "";
+  let revenue = 0;
+
+  orders.forEach(o => {
+    orderTable.innerHTML += `
+      <tr>
+        <td>${o.name}</td>
+        <td>${o.price}</td>
+        <td>${o.qty}</td>
+      </tr>
+    `;
+    revenue += o.price * o.qty;
+  });
+
+  document.getElementById("totalRevenue").innerText = revenue;
+}
+
+function loadDashboard() {
+  document.getElementById("totalProducts").innerText = products.length;
+  document.getElementById("totalOrders").innerText = orders.length;
+}
+
+loadProducts();
+loadOrders();
+loadDashboard();
+</script>
+
+</body>
+</html>
